@@ -62,4 +62,8 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
     }
     this.setAppearance(updatedAppearance);
   }
+  
+  def displayScoreScene() : Unit = {
+    this.getGame.setCurrentScene(new ScoreScene(score));
+  }
 }

@@ -13,9 +13,11 @@ import java.text.DecimalFormatSymbols
 class Timer extends RichGameComponent[CatchTheThingScene] {
 
   var isCounting = false;
-  var playTime = 60.0;
+  var playTime = 2.0;
   var ended = false;
   val decimalFormat = new DecimalFormat("##.##");
+  decimalFormat.setRoundingMode(RoundingMode.DOWN);
+  var endDelay = 3.0;
 
   val font = new Font(Font.SERIF, Font.BOLD, 50);
   this.setAppearance(new PulsingLabel(font, Color.WHITE, "Press ENTER to play", true));
@@ -31,7 +33,11 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       appearancePulse(false);
       updateAppearanceText(decimalFormat.format(playTime));
     } else if (ended){
-      
+      if(endDelay > 0){
+        endDelay -= state.getDelta;
+      } else {
+        this.getScene.counter.displayScoreScene();
+      }
     }
   }
 
@@ -40,10 +46,9 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       playTime -= state.getDelta();
       updateAppearanceText(decimalFormat.format(playTime));
     } else {
-      playTime = 0.0;
       isCounting = false;
       ended = true;
-
+      this.getScene.addComponent(new FadingScreen[CatchTheThingScene]);
     }
   }
 
