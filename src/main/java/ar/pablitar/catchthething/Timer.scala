@@ -13,7 +13,7 @@ import java.text.DecimalFormatSymbols
 class Timer extends RichGameComponent[CatchTheThingScene] {
 
   var isCounting = false;
-  var playTime = 2.0;
+  var playTime = 60.0;
   var ended = false;
   val decimalFormat = new DecimalFormat("##.##");
   decimalFormat.setRoundingMode(RoundingMode.DOWN);
