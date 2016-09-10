@@ -2,7 +2,6 @@ package ar.pablitar.catchthething
 
 import ar.pablitar.vainilla.commons.components.RichGameComponent
 import java.awt.Font
-import com.uqbar.vainilla.appearances.Label
 import java.awt.Color
 import com.uqbar.vainilla.DeltaState
 import ar.pablitar.vainilla.commons.math.Vector2D
@@ -18,10 +17,10 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   val flashTime = 0.2;
   var flashTimer = 0.0;
 
-  this.setAppearance(new Label(font, Color.BLACK, labelText));
+  this.setAppearance(new FadeableLabel(font, Color.BLACK, labelText, false));
 
-  this.position_=(new Vector2D(600, 0));
-  this.center();
+  this.position_=(new Vector2D(325, 10));
+
 
   override def update(state: DeltaState) = {
     super.update(state)
@@ -46,7 +45,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   }
 
   private def updateScore(delta : Double) = {
-    var updatedAppearance = this.getAppearance().asInstanceOf[Label];
+    var updatedAppearance = this.getAppearance().asInstanceOf[FadeableLabel];
     updatedAppearance.setText(labelText + score);
     if(shouldFlash && flashTimer < flashTime){
       updatedAppearance.setColor(Color.WHITE);

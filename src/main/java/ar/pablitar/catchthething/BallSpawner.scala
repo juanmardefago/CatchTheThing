@@ -11,13 +11,19 @@ class BallSpawner extends GameComponent[CatchTheThingScene] {
   
   //Hasta 60 veces por segundo
   override def update(state: DeltaState) = {
+    if(this.getScene.timer.isCounting){
+      doUpdate(state);
+    }
+  }
+  
+  def doUpdate(state :DeltaState){
     if(timer >= cooldown) {
       spawnBall
       timer = 0
       cooldown = generateCooldown
     } else {
       timer += state.getDelta
-    }
+    }    
   }
   
   def spawnBall = {

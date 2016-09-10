@@ -5,6 +5,7 @@ import com.uqbar.vainilla.GameComponent
 import ar.pablitar.vainilla.commons.math.Vector2D
 
 class CatchTheThingScene extends GameScene {
+  
   val catcher = new Catcher(new CatcherShadow)
   
   val background = new GameComponent
@@ -15,6 +16,8 @@ class CatchTheThingScene extends GameScene {
   
   val popup = new ComboPopUp;
   
+  val timer = new Timer;
+  
   this.addComponent(background)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)
@@ -22,4 +25,5 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(new Sun(Vector2D(575, 85)))
   this.addComponent(counter)
   this.addComponent(popup)
+  this.addComponent(timer);
 }
