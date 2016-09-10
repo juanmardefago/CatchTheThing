@@ -17,12 +17,17 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   val flashTime = 0.2;
   var flashTimer = 0.0;
 
-  this.setAppearance(new FadeableLabel(font, Color.BLACK, labelText, false));
+  this.setAppearance(new FadeableLabel(font, Color.BLACK, "", false));
 
   this.position_=(new Vector2D(325, 10));
 
-
   override def update(state: DeltaState) = {
+    if(this.getScene.timer.isCounting){
+      doUpdate(state);
+    }
+  }
+
+  def doUpdate(state: DeltaState) {
     super.update(state)
     updateScore(state.getDelta());
     if (currentCombo % 5 == 0 && currentCombo != 0) {
@@ -44,14 +49,14 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
     return currentCombo;
   }
 
-  private def updateScore(delta : Double) = {
+  private def updateScore(delta: Double) = {
     var updatedAppearance = this.getAppearance().asInstanceOf[FadeableLabel];
     updatedAppearance.setText(labelText + score);
-    if(shouldFlash && flashTimer < flashTime){
+    if (shouldFlash && flashTimer < flashTime) {
       updatedAppearance.setColor(Color.WHITE);
       flashTimer += delta;
     } else {
-      updatedAppearance.setColor(Color.BLACK); 
+      updatedAppearance.setColor(Color.BLACK);
       flashTimer = 0.0;
       this.shouldFlash = false;
     }

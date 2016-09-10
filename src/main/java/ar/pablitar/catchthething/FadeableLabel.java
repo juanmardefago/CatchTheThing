@@ -56,13 +56,17 @@ public class FadeableLabel extends Label{
 	
 	@Override
 	public void render(GameComponent<?> component, Graphics2D graphics) {
-		Composite before = graphics.getComposite();
-		graphics.setComposite(AlphaComposite.getInstance(
-	            AlphaComposite.SRC_OVER, this.alpha()));
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
-			        RenderingHints.VALUE_ANTIALIAS_ON);
-		super.render(component, graphics);
-		graphics.setComposite(before);
+		if (fade) {
+			Composite before = graphics.getComposite();
+			graphics.setComposite(AlphaComposite.getInstance(
+					AlphaComposite.SRC_OVER, this.alpha()));
+			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			super.render(component, graphics);
+			graphics.setComposite(before);
+		} else {
+			super.render(component, graphics);			
+		}
 	}
 	
 	private float alpha(){

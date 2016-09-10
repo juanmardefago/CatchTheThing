@@ -16,39 +16,46 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   var playTime = 60.0;
   var ended = false;
   val decimalFormat = new DecimalFormat("##.##");
-  decimalFormat.setRoundingMode(RoundingMode.DOWN);
 
   val font = new Font(Font.SERIF, Font.BOLD, 50);
-  this.setAppearance(new FadeableLabel(font, Color.WHITE, "", false));
+  this.setAppearance(new PulsingLabel(font, Color.WHITE, "Press ENTER to play", true));
   this.position = Vector2D(180, 275);
 
   override def update(state: DeltaState) = {
+    super.update(state);
     if (isCounting) {
       runGame(state);
     } else if (state.isKeyPressed(Key.ENTER) && !ended) {
       this.isCounting = true;
       this.position = Vector2D(10, 10);
+      appearancePulse(false);
       updateAppearanceText(decimalFormat.format(playTime));
-    } else if (!ended){
-      updateAppearanceText("Press ENTER to play");
+    } else if (ended){
+      
     }
   }
 
-  def runGame(state : DeltaState){
-      if (playTime > 0) {
-        playTime -= state.getDelta();
-        updateAppearanceText(decimalFormat.format(playTime));
-      } else {
-        isCounting = false;
-        ended = true;
-        playTime = 0.0;
-      }    
+  def runGame(state: DeltaState) {
+    if (playTime >= 0 + state.getDelta()) {
+      playTime -= state.getDelta();
+      updateAppearanceText(decimalFormat.format(playTime));
+    } else {
+      playTime = 0.0;
+      isCounting = false;
+      ended = true;
+
+    }
   }
-  
-  def updateAppearanceText(text: String) {
-    var updatedAppearance = this.getAppearance().asInstanceOf[FadeableLabel];
+
+  private def updateAppearanceText(text: String) {
+    var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
     updatedAppearance.setText(text);
     this.setAppearance(updatedAppearance);
   }
 
+  private def appearancePulse(shouldPulse: Boolean) {
+    var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
+    updatedAppearance.setPulse(shouldPulse);
+    this.setAppearance(updatedAppearance);
+  }
 }

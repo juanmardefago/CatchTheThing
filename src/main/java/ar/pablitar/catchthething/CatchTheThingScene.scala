@@ -25,5 +25,5 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(new Sun(Vector2D(575, 85)))
   this.addComponent(counter)
   this.addComponent(popup)
-  this.addComponent(timer);
+  this.addComponent(timer)
 }
