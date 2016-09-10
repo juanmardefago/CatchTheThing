@@ -40,11 +40,15 @@ class Catcher(val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingSc
   shadow.position = this.position
   
   override def update(state :DeltaState) = {
-    val speedX:Double = 
+    var speedX:Double = 
       if(state.isKeyBeingHold(Key.RIGHT)) speedMagnitude 
       else if(state.isKeyBeingHold(Key.LEFT)) -speedMagnitude
       else 0.0
-    
+
+    if(state.isKeyBeingHold(Key.SHIFT)){
+      speedX *= 2;
+    }
+      
     this.speed = (speedX, 0.0)
     
     this.setAppearanceAccordingToSpeed(speedX)

@@ -11,9 +11,15 @@ class CatchTheThingScene extends GameScene {
   background.setAppearance(Resources.background)
   background.setZ(-50)
   
+  val counter = new BallAndComboCounter()
+  
+  val popup = new ComboPopUp;
+  
   this.addComponent(background)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)
   this.addComponent(new BallSpawner)
   this.addComponent(new Sun(Vector2D(575, 85)))
+  this.addComponent(counter)
+  this.addComponent(popup)
 }

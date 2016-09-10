@@ -82,6 +82,8 @@ class Ball extends SpeedyComponent[CatchTheThingScene] {
   def onCaught() = {
     this.setZ(-2)
     this.catched = true
+    // Aca voy a poner el sumador al combo y al counter de balls
+    this.getScene.counter.countBall();
   }
 
   def checkCollisionWithCatcherWalls() = {
@@ -101,7 +103,12 @@ class Ball extends SpeedyComponent[CatchTheThingScene] {
   }
 
   def checkIfBelowTheScreen() = {
-    if (this.position.x2 > 650)
+    if (this.position.x2 > 650){
+      if(!catched){
+      this.getScene.counter.comboLost();
+      }
       this.destroy()
+      }
+
   }
 }
