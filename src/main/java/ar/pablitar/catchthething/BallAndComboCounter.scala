@@ -12,7 +12,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   var score = 0;
   var currentCombo = 0;
   var labelText = "Score: ";
-  val font = new Font(Font.SERIF, Font.BOLD, 40);
+  val font = new Font("Trebuchet", Font.BOLD, 40);
   var shouldFlash = false;
   val flashTime = 0.2;
   var flashTimer = 0.0;

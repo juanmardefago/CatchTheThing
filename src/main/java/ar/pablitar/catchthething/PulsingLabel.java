@@ -81,4 +81,8 @@ public class PulsingLabel extends Label {
 	public void setPulse(boolean shouldPulse) {
 		this.pulse = shouldPulse;
 	}
+	
+	public void restartTimer(){
+		this.pulseTimer = 0;
+	}
 }

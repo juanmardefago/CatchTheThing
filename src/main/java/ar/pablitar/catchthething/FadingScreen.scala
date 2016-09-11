@@ -39,7 +39,6 @@ class FadingScreen[T <: GameScene] extends RichGameComponent[T] {
 		} else {
 			res = 1;
 		}
-		System.out.println(res);
 		return res;
   }
 }

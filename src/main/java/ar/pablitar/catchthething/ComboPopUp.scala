@@ -14,7 +14,7 @@ class ComboPopUp extends SpeedyComponent[CatchTheThingScene] {
   var showing = false;
   var combo = 0;
 
-  val font = new Font(Font.SERIF, Font.BOLD, 40);
+  val font = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 40);
   val baseText = " COMBO";
   override val acceleration = Some(Vector2D(800, 0))
 

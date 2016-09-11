@@ -9,9 +9,9 @@ import com.uqbar.vainilla.events.constants.Key
 
 class Restarter extends RichGameComponent[CatchTheThingScene] {
 
-  val font = new Font("Helvetica", Font.BOLD, 45);
+  val font = new Font(Font.SERIF, Font.BOLD, 45);
   this.setAppearance(new PulsingLabel(font, Color.WHITE, "Press ENTER to play again!", true));
-  this.position = Vector2D(100, 300)
+  this.position = Vector2D(125, 300)
 
   override def update(state: DeltaState) {
     super.update(state);
