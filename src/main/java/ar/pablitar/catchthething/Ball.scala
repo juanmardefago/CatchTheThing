@@ -21,7 +21,7 @@ class Ball extends SpeedyComponent[CatchTheThingScene] {
 
   var catched = false
 
-  this.speed = (Random.nextInt(800), 0)
+  this.speed = (Random.nextInt(750) + 50, 0)
 
   override val acceleration = Some(Vector2D(0, 1000))
 
@@ -110,5 +110,12 @@ class Ball extends SpeedyComponent[CatchTheThingScene] {
       this.destroy()
       }
 
+  }
+  
+  def setPositionAndRefreshSpeed(position : Vector2D) : Unit = {
+    this.position = position;
+    if(position.x1 == 800) {
+      this.speed = -this.speed
+    }
   }
 }

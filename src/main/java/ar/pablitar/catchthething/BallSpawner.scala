@@ -3,6 +3,7 @@ package ar.pablitar.catchthething
 import com.uqbar.vainilla.GameComponent
 import com.uqbar.vainilla.DeltaState
 import scala.util.Random
+import ar.pablitar.vainilla.commons.math.Vector2D
 
 class BallSpawner extends GameComponent[CatchTheThingScene] {
   
@@ -27,12 +28,13 @@ class BallSpawner extends GameComponent[CatchTheThingScene] {
   }
   
   def spawnBall = {
-    val ball = new Ball
+    var ball = new Ball
+    ball.setPositionAndRefreshSpeed(Vector2D(Random.nextInt(2) * 800, 0))
     this.getScene.addComponent(ball)
   }
 
   def generateCooldown = {
-    (Random.nextDouble() * 0.5) + 0.2
+    (Random.nextDouble() * 0.4) + 0.3
   }
 }
 

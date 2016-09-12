@@ -62,8 +62,8 @@ public class PulsingLabel extends Label {
 			graphics.setComposite(AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, this.alpha()));
 		} 
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, // Anti-alias para texto
+				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		super.render(component, graphics);
 		graphics.setComposite(before);
 	}
