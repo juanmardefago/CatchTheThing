@@ -20,8 +20,9 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   var endDelay = 3.0;
   var timeIsRunningOut = false;
 
-  val font = new Font(Font.SERIF, Font.BOLD, 50);
-  this.setAppearance(new PulsingLabel(font, Color.WHITE, "Press ENTER to play", true));
+  val fontTitle = new Font(Font.SERIF, Font.BOLD, 50);
+  val fontTimer = new Font("Trebuchet", Font.BOLD, 40);
+  this.setAppearance(new PulsingLabel(fontTitle, Color.WHITE, "Press ENTER to play", true));
   this.position = Vector2D(180, 275);
 
   override def update(state: DeltaState) = {
@@ -30,9 +31,7 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       runGame(state);
     } else if (state.isKeyPressed(Key.ENTER) && !ended) {
       this.isCounting = true;
-      this.position = Vector2D(10, 10);
-      appearancePulse(false);
-      updateAppearanceText(decimalFormat.format(playTime));
+      setLabelForTimer()
     } else if (ended) {
       if (endDelay > 0) {
         endDelay -= state.getDelta;
@@ -95,5 +94,13 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       appearancePulseTimeLoop(0.75f);
       appearanceRestartPulseTimer();
     }
+  }
+
+  private def setLabelForTimer() {
+    this.position = Vector2D(10, 10);
+    appearancePulse(false);
+    updateAppearanceText(decimalFormat.format(playTime));
+    var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
+    updatedAppearance.setFont(fontTimer)
   }
 }
