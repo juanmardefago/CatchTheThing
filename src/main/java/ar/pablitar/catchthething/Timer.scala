@@ -25,19 +25,19 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   this.setAppearance(new PulsingLabel(fontTitle, Color.WHITE, "Press ENTER to play", true));
   this.position = Vector2D(180, 275);
 
+  // Si cuando updateo el timer esta contando, entonces el juego tiene que estar "running"
+  // Sino, significa que, si no termino, tiene que verificarse que se toque el enter, para empezar el game
+  // Sino, significa que o no se toco el enter, o ya termino, y si termino se tiene que mostrar el
+  // fade to black, que luego cambia a la pantalla del score
   override def update(state: DeltaState) = {
     super.update(state);
     if (isCounting) {
       runGame(state);
     } else if (state.isKeyPressed(Key.ENTER) && !ended) {
       this.isCounting = true;
-      setLabelForTimer()
+      setLabelForTimer();
     } else if (ended) {
-      if (endDelay > 0) {
-        endDelay -= state.getDelta;
-      } else {
-        this.getScene.counter.displayScoreScene();
-      }
+      endingFade(state);
     }
   }
 
@@ -54,6 +54,32 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       ended = true;
       timeIsRunningOut = false;
       this.getScene.addComponent(new FadingScreen[CatchTheThingScene]);
+    }
+  }
+
+  private def setTimerUnder5() {
+    if (!timeIsRunningOut) {
+      timeIsRunningOut = true;
+      appearancePulse(true);
+      appearanceColor(Color.RED);
+      appearancePulseTimeLoop(0.75f);
+      appearanceRestartPulseTimer();
+    }
+  }
+
+  private def setLabelForTimer() {
+    this.position = Vector2D(10, 10);
+    appearancePulse(false);
+    updateAppearanceText(decimalFormat.format(playTime));
+    var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
+    updatedAppearance.setFont(fontTimer)
+  }
+
+  private def endingFade(state: DeltaState) = {
+    if (endDelay > 0) {
+      endDelay -= state.getDelta;
+    } else {
+      this.getScene.counter.displayScoreScene();
     }
   }
 
@@ -86,21 +112,4 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
     updatedAppearance.restartTimer();
   }
 
-  private def setTimerUnder5() {
-    if (!timeIsRunningOut) {
-      timeIsRunningOut = true;
-      appearancePulse(true);
-      appearanceColor(Color.RED);
-      appearancePulseTimeLoop(0.75f);
-      appearanceRestartPulseTimer();
-    }
-  }
-
-  private def setLabelForTimer() {
-    this.position = Vector2D(10, 10);
-    appearancePulse(false);
-    updateAppearanceText(decimalFormat.format(playTime));
-    var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
-    updatedAppearance.setFont(fontTimer)
-  }
 }

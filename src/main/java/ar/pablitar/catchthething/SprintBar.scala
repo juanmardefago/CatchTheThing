@@ -14,12 +14,12 @@ class SprintBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThing
   val background = bg;
 
   this.position = Vector2D(8, 568)
-  
+
   val positiveColor = Color.GREEN
   val negativeColor = Color.ORANGE
 
-  val bar = new ResizableRectangle(positiveColor, 344, 24);
   var fullWidth = 344;
+  val bar = new ResizableRectangle(positiveColor, fullWidth, 24);
 
   var canSprint = true;
 
@@ -29,6 +29,7 @@ class SprintBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThing
     if (this.getScene.timer.isCounting) {
       doUpdate(state);
     }
+    super.update(state)
   }
 
   def doUpdate(state: DeltaState) = {
@@ -55,11 +56,11 @@ class SprintBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThing
     }
   }
 
-  def increaseValue(deltaDecrease: Double): Unit = {
-    if (value <= 100 - deltaDecrease) {
-      value += deltaDecrease;
-    } 
-    if (!canSprint && value > 50){
+  def increaseValue(deltaIncrease: Double): Unit = {
+    if (value <= 100 - deltaIncrease) {
+      value += deltaIncrease;
+    }
+    if (!canSprint && value > 50) {
       canSprint = true;
       bar.changeColor(positiveColor);
     }
