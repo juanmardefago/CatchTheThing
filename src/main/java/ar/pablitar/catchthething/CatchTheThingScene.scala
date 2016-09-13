@@ -20,7 +20,9 @@ class CatchTheThingScene extends GameScene {
   
   val sprintBar = new SprintBar(new SprintBarBackground)
   sprintBar.setZ(-2);
-  sprintBar.background.setZ(-3);
+  sprintBar.background.setZ(-3)
+  
+  val extraTimeBar = new ExtraTimeBar(new SprintBarBackground)
   
   this.addComponent(background)
   this.addComponent(catcher)
@@ -32,4 +34,6 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(timer)
   this.addComponent(sprintBar)
   this.addComponent(sprintBar.background)
+  this.addComponent(extraTimeBar)
+  this.addComponent(extraTimeBar.background)
 }

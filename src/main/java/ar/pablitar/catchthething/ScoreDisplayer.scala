@@ -5,9 +5,7 @@ import java.awt.Font
 import java.awt.Color
 import ar.pablitar.vainilla.commons.math.Vector2D
 
-class ScoreDisplayer(score: Int) extends RichGameComponent[CatchTheThingScene]{
-  
-    val playTime = 30;
+class ScoreDisplayer(score: Int, playTime: Double) extends RichGameComponent[CatchTheThingScene]{
     
     val textEnding = if(score < playTime * 50) "you should practice more..."
     else if(score < playTime * 100) "         pretty decent!"

@@ -24,6 +24,8 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   val fontTimer = new Font("Trebuchet", Font.BOLD, 40);
   this.setAppearance(new PulsingLabel(fontTitle, Color.WHITE, "Press ENTER to play", true));
   this.position = Vector2D(180, 275);
+  
+  var totalTimePlayed = playTime;
 
   // Si cuando updateo el timer esta contando, entonces el juego tiene que estar "running"
   // Sino, significa que, si no termino, tiene que verificarse que se toque el enter, para empezar el game
@@ -50,10 +52,7 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       updateAppearanceText(decimalFormat.format(playTime));
       setTimerUnder5();
     } else {
-      isCounting = false;
-      ended = true;
-      timeIsRunningOut = false;
-      this.getScene.addComponent(new FadingScreen[CatchTheThingScene]);
+      checkForExtraTimeOrEnd()
     }
   }
 
@@ -70,6 +69,7 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   private def setLabelForTimer() {
     this.position = Vector2D(10, 10);
     appearancePulse(false);
+    appearanceColor(Color.WHITE);
     updateAppearanceText(decimalFormat.format(playTime));
     var updatedAppearance = this.getAppearance().asInstanceOf[PulsingLabel];
     updatedAppearance.setFont(fontTimer)
@@ -80,6 +80,28 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
       endDelay -= state.getDelta;
     } else {
       this.getScene.counter.displayScoreScene();
+    }
+  }
+
+  // Estaria bueno freezear el tiempo y que se haga una animacion de carga.
+
+  def addTime(time: Double): Unit = {
+    playTime += time
+    totalTimePlayed += time
+    if(time > 5.5){
+      setLabelForTimer()
+      timeIsRunningOut = false
+    }
+  }
+
+  def checkForExtraTimeOrEnd(): Unit = {
+    if (this.getScene.extraTimeBar.hasExtraTime) {
+      this.getScene.extraTimeBar.chargeTime
+    } else {
+      isCounting = false;
+      ended = true;
+      timeIsRunningOut = false;
+      this.getScene.addComponent(new FadingScreen[CatchTheThingScene]);
     }
   }
 

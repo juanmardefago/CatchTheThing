@@ -39,10 +39,12 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
     this.currentCombo += 1;
     this.score += (baseBallValue * comboMultiplier())
     this.shouldFlash = true;
+    this.addExtraTimeBarValue(baseBallValue * comboMultiplier());
   }
 
   def comboLost(): Unit = {
     this.currentCombo = 0;
+    this.removeExtraTimeBarValue();
   }
 
   private def comboMultiplier(): Int = {
@@ -64,6 +66,15 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   }
   
   def displayScoreScene() : Unit = {
-    this.getGame.setCurrentScene(new ScoreScene(score));
+    this.getGame.setCurrentScene(new ScoreScene(score, this.getScene.timer.totalTimePlayed));
+  }
+  
+  def addExtraTimeBarValue(value : Int) : Unit = {
+    var newValue = value.toDouble / 100.0
+    this.getScene.extraTimeBar.increaseValue(newValue)
+  }
+  
+  def removeExtraTimeBarValue() : Unit = {
+    this.getScene.extraTimeBar.decreaseValue(0.3)
   }
 }
