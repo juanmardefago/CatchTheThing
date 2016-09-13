@@ -19,7 +19,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
 
   this.setAppearance(new FadeableLabel(font, Color.BLACK, "", false));
 
-  this.position_=(new Vector2D(325, 10));
+  this.position_=(new Vector2D(300, 10));
 
   override def update(state: DeltaState) = {
     if(this.getScene.timer.isCounting){

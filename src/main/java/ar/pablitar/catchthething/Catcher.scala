@@ -39,14 +39,19 @@ class Catcher(val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingSc
   
   shadow.position = this.position
   
+  val sprintUsage = 45.0;
+  
   override def update(state :DeltaState) = {
     var speedX:Double = 
       if(state.isKeyBeingHold(Key.RIGHT)) speedMagnitude 
       else if(state.isKeyBeingHold(Key.LEFT)) -speedMagnitude
       else 0.0
 
-    if(state.isKeyBeingHold(Key.SHIFT)){
+    if(state.isKeyBeingHold(Key.SHIFT) && this.getScene.sprintBar.canSprint){
       speedX *= 2;
+      this.getScene.sprintBar.decreaseValue(sprintUsage * state.getDelta())
+    } else {
+      this.getScene.sprintBar.increaseValue(sprintUsage * 0.70 * state.getDelta())
     }
       
     this.speed = (speedX, 0.0)

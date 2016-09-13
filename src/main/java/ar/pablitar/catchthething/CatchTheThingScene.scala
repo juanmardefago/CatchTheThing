@@ -18,6 +18,10 @@ class CatchTheThingScene extends GameScene {
   
   val timer = new Timer;
   
+  val sprintBar = new SprintBar(new SprintBarBackground)
+  sprintBar.setZ(-2);
+  sprintBar.background.setZ(-3);
+  
   this.addComponent(background)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)
@@ -26,4 +30,6 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(counter)
   this.addComponent(popup)
   this.addComponent(timer)
+  this.addComponent(sprintBar)
+  this.addComponent(sprintBar.background)
 }
