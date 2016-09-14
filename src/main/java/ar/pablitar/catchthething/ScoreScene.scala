@@ -10,7 +10,12 @@ class ScoreScene(score: Int, playTime : Double) extends GameScene {
   val background = new GameComponent(new Rectangle(Color.BLACK, 800, 600),0,0)
   background.setZ(-50)
   
+  val soundManager = new SoundManager
+  soundManager.init()
+  
   this.addComponent(new ScoreDisplayer(score, playTime));
   this.addComponent(background);
   this.addComponent(new Restarter);
+  
+  soundManager.playEndingMusicOnLoop()
 }

@@ -7,7 +7,7 @@ import java.awt.Color
 import java.awt.Font
 import com.uqbar.vainilla.events.constants.Key
 
-class Restarter extends RichGameComponent[CatchTheThingScene] {
+class Restarter extends RichGameComponent[ScoreScene] {
 
   val font = new Font(Font.SERIF, Font.BOLD, 45);
   this.setAppearance(new PulsingLabel(font, Color.WHITE, "Press ENTER to play again!", true));
@@ -21,6 +21,7 @@ class Restarter extends RichGameComponent[CatchTheThingScene] {
   }
 
   private def restartGame(): Unit = {
+    this.getScene.soundManager.shutdown();
     this.getGame.setCurrentScene(new CatchTheThingScene())
   }
 }
