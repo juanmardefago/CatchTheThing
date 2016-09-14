@@ -30,13 +30,13 @@ class SoundManager {
 
   def playIntroMusicOnLoop(): Unit = {
     stopAndUnloadMusic()
-    currentSong = Some(TinySound.loadMusic(getClass().getResource("/music/dream.wav")))
+    currentSong = Some(TinySound.loadMusic(getClass().getResource("/music/dream.wav"), true))
     playMusic()
   }
 
   def playGameplayMusicOnLoop(): Unit = {
     stopAndUnloadMusic()
-    currentSong = Some(TinySound.loadMusic(getClass().getResource("/music/happy.wav")))
+    currentSong = Some(TinySound.loadMusic(getClass().getResource("/music/happy.wav"), true))
     playMusic()
   }
   

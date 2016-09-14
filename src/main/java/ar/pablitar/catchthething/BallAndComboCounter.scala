@@ -67,6 +67,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   }
 
   def displayScoreScene(): Unit = {
+    this.getScene.soundManager.shutdown();
     this.getGame.setCurrentScene(new ScoreScene(score, this.getScene.timer.totalTimePlayed));
   }
 
