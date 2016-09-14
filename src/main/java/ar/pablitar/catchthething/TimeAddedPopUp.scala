@@ -13,7 +13,7 @@ class TimeAddedPopUp extends SpeedyComponent[CatchTheThingScene] {
   var timer = 0.0;
   var showing = false;
 
-  val font = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 40);
+  val font = new Font(Font.SERIF, Font.BOLD, 40);
   val baseText = "TIME ADDED";
   override val acceleration = Some(Vector2D(-800, 0))
 
@@ -21,19 +21,19 @@ class TimeAddedPopUp extends SpeedyComponent[CatchTheThingScene] {
 
   this.setAppearance(initialLabel);
 
-  this.position_=(new Vector2D(-75, 250));
+  this.position_=(new Vector2D(-275, 250));
 
   override def update(state: DeltaState) = {
     super.update(state)
     if (showing) {
       this.showRoutine(state.getDelta());
     } else {
-      this.setAppearance(new FadeableLabel(font, Color.RED, ""));
+      this.setAppearance(new FadeableLabel(font, Color.YELLOW, ""));
     }
   }
-  
+
   override def render(graphics: Graphics2D) {
-    if(showing){
+    if (showing) {
       super.render(graphics)
     }
   }
@@ -44,7 +44,6 @@ class TimeAddedPopUp extends SpeedyComponent[CatchTheThingScene] {
       this.easingInit();
     }
   }
-  
 
   private def showRoutine(delta: Double): Unit = {
     if (timer < maxTimeShowing) {
@@ -58,7 +57,7 @@ class TimeAddedPopUp extends SpeedyComponent[CatchTheThingScene] {
   }
 
   private def easingInit() {
-    this.position_=(new Vector2D(-75, 250));
+    this.position_=(new Vector2D(-275, 250));
     this.speed = (Vector2D(700, 0));
   }
 }

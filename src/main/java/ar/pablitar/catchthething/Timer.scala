@@ -116,8 +116,9 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   }
 
   def checkForExtraTimeOrEnd(): Unit = {
-    if (this.getScene.extraTimeBar.hasExtraTime) {
+    if (this.getScene.extraTimeBar.canAddTime()) {
       this.getScene.extraTimeBar.chargeTime
+      this.getScene.timePopUp.show()
     } else {
       isCounting = false;
       ended = true;

@@ -39,15 +39,18 @@ class ExtraTimeBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheTh
     if (this.getScene.timer.isCounting) {
       val before = graphics.getComposite();
       graphics.setComposite(AlphaComposite.getInstance(
-        AlphaComposite.SRC_OVER, 0.8f));
+        AlphaComposite.SRC_OVER, 0.9f));
       super.render(graphics);
       graphics.setComposite(before);
     }
   }
 
   def decreaseValue(deltaDecrease: Double): Unit = {
-    if (value >= deltaDecrease) {
+    if (value >= 15 + deltaDecrease) {
       value -= deltaDecrease;
+    } else if (value >= deltaDecrease) {
+      value -= deltaDecrease;
+      this.getAppearance.asInstanceOf[ResizableRectangle].changeColor(Color.CYAN);
     }
   }
 
@@ -55,20 +58,26 @@ class ExtraTimeBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheTh
     if (value <= 100 - deltaIncrease) {
       value += deltaIncrease;
     }
+    if (value >= 15) {
+      this.getAppearance.asInstanceOf[ResizableRectangle].changeColor(Color.YELLOW);
+    } else if (value > 100 - deltaIncrease) {
+      value = 100.0
+    }
   }
-  
-  def compensateWidthChange(width : Double) : Unit = {
+
+  def compensateWidthChange(width: Double): Unit = {
     var newXPosition = initialX - width;
     this.position = Vector2D(newXPosition, this.position.x2);
   }
-  
-  def hasExtraTime() : Boolean = {
-    return value > 0
+
+  def canAddTime(): Boolean = {
+    return value >= 15;
   }
-  
-  def chargeTime() : Unit = {
+
+  def chargeTime(): Unit = {
     var time = value * 0.2
     this.getScene.timer.addTime(time)
     this.value = 0.0
+    this.getAppearance.asInstanceOf[ResizableRectangle].changeColor(Color.CYAN);
   }
 }

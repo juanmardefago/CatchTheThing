@@ -27,6 +27,8 @@ class CatchTheThingScene extends GameScene {
   val soundManager = new SoundManager
   soundManager.init();
   
+  val timePopUp = new TimeAddedPopUp()
+  
   this.addComponent(background)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)
@@ -39,4 +41,5 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(sprintBar.background)
   this.addComponent(extraTimeBar)
   this.addComponent(extraTimeBar.background)
+  this.addComponent(timePopUp)
 }

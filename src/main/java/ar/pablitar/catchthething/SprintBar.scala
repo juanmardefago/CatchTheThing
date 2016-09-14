@@ -41,7 +41,7 @@ class SprintBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThing
     if (this.getScene.timer.isCounting) {
       val before = graphics.getComposite();
       graphics.setComposite(AlphaComposite.getInstance(
-        AlphaComposite.SRC_OVER, 0.8f));
+        AlphaComposite.SRC_OVER, 0.9f));
       super.render(graphics);
       graphics.setComposite(before);
     }
