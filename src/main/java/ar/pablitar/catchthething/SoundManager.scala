@@ -5,7 +5,7 @@ import tinysound.Music
 import tinysound.Sound
 import scala.util.Random
 
-// Pequeño Façade para utilizar la libreria de TinySound en este proyecto
+// Pequeño Façade para utilizar la libreria de TinySound en este proyecto particular
 
 class SoundManager {
   TinySound.init()
@@ -42,7 +42,7 @@ class SoundManager {
   
   def playMusic() : Unit =  {
     if(currentSong != None) {
-      currentSong.get.play(true)
+      currentSong.get.play(true);
     }
   }
   
@@ -56,15 +56,15 @@ class SoundManager {
     if(currentSong != None){
       currentSong.get.stop();
       currentSong.get.unload();
-      currentSong = None
+      currentSong = None;
     }    
   }
   
   def isPlayingMusic() : Boolean = {
-    return currentSong != None && currentSong.get.playing()
+    return currentSong != None && currentSong.get.playing();
   }
   
   def playComboSound() : Unit = {
-    combos(Random.nextInt(2)).play()
+    combos(Random.nextInt(2)).play();
   }
 }
