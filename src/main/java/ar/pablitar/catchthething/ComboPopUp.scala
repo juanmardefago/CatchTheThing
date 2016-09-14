@@ -51,6 +51,7 @@ class ComboPopUp extends SpeedyComponent[CatchTheThingScene] {
       showing = false;
       timer = 0.0;
       this.setAppearance(new FadeableLabel(font, Color.RED, ""));
+      this.getScene.counter.comboShowing = false;
     }
   }
 

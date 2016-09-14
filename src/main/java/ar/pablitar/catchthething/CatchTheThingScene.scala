@@ -24,6 +24,9 @@ class CatchTheThingScene extends GameScene {
   
   val extraTimeBar = new ExtraTimeBar(new SprintBarBackground)
   
+  val soundManager = new SoundManager
+  soundManager.init();
+  
   this.addComponent(background)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)

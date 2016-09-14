@@ -24,7 +24,7 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   val fontTimer = new Font("Trebuchet", Font.BOLD, 40);
   this.setAppearance(new PulsingLabel(fontTitle, Color.WHITE, "Press ENTER to play", true));
   this.position = Vector2D(180, 275);
-  
+
   var totalTimePlayed = playTime;
 
   // Si cuando updateo el timer esta contando, entonces el juego tiene que estar "running"
@@ -34,12 +34,16 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   override def update(state: DeltaState) = {
     super.update(state);
     if (isCounting) {
+      startGameMusicIfNotAlready()
       runGame(state);
     } else if (state.isKeyPressed(Key.ENTER) && !ended) {
+      stopMusic()
       this.isCounting = true;
       setLabelForTimer();
     } else if (ended) {
       endingFade(state);
+    } else {
+      startIntroMusicIfNotAlready()
     }
   }
 
@@ -79,8 +83,25 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
     if (endDelay > 0) {
       endDelay -= state.getDelta;
     } else {
+      this.getScene.soundManager.stopAndUnloadMusic();
       this.getScene.counter.displayScoreScene();
     }
+  }
+
+  private def startIntroMusicIfNotAlready(): Unit = {
+    if (!this.getScene.soundManager.isPlayingMusic()) {
+      this.getScene.soundManager.playIntroMusicOnLoop();
+    }
+  }
+
+  private def startGameMusicIfNotAlready(): Unit = {
+    if (!this.getScene.soundManager.isPlayingMusic()) {
+      this.getScene.soundManager.playGameplayMusicOnLoop();
+    }
+  }
+
+  private def stopMusic(): Unit = {
+    this.getScene.soundManager.stopAndUnloadMusic()
   }
 
   // Estaria bueno freezear el tiempo y que se haga una animacion de carga.
@@ -88,7 +109,7 @@ class Timer extends RichGameComponent[CatchTheThingScene] {
   def addTime(time: Double): Unit = {
     playTime += time
     totalTimePlayed += time
-    if(time > 5.5){
+    if (time > 5.5) {
       setLabelForTimer()
       timeIsRunningOut = false
     }

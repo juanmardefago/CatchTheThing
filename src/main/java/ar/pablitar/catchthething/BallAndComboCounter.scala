@@ -16,13 +16,14 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   var shouldFlash = false;
   val flashTime = 0.2;
   var flashTimer = 0.0;
+  var comboShowing = false;
 
   this.setAppearance(new FadeableLabel(font, Color.BLACK, "", false));
 
   this.position = Vector2D(300, 10);
 
   override def update(state: DeltaState) = {
-    if(this.getScene.timer.isCounting){
+    if (this.getScene.timer.isCounting) {
       doUpdate(state);
     }
   }
@@ -31,7 +32,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
     super.update(state)
     updateScore(state.getDelta());
     if (currentCombo % 5 == 0 && currentCombo != 0) {
-      this.getScene.popup.show(currentCombo);
+      playComboSoundAndShow()
     }
   }
 
@@ -64,17 +65,25 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
     }
     this.setAppearance(updatedAppearance);
   }
-  
-  def displayScoreScene() : Unit = {
+
+  def displayScoreScene(): Unit = {
     this.getGame.setCurrentScene(new ScoreScene(score, this.getScene.timer.totalTimePlayed));
   }
-  
-  def addExtraTimeBarValue(value : Int) : Unit = {
+
+  def addExtraTimeBarValue(value: Int): Unit = {
     var newValue = value.toDouble / 100.0
     this.getScene.extraTimeBar.increaseValue(newValue)
   }
-  
-  def removeExtraTimeBarValue() : Unit = {
+
+  def removeExtraTimeBarValue(): Unit = {
     this.getScene.extraTimeBar.decreaseValue(0.3)
+  }
+
+  def playComboSoundAndShow(): Unit = {
+    if (!comboShowing) {
+      this.getScene.soundManager.playComboSound();
+      this.getScene.popup.show(currentCombo);
+      comboShowing = true;
+    }
   }
 }
