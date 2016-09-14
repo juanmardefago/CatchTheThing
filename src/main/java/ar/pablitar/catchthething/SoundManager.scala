@@ -2,14 +2,22 @@ package ar.pablitar.catchthething
 
 import tinysound.TinySound
 import tinysound.Music
+import tinysound.Sound
+import scala.util.Random
 
 // Pequeño Façade para utilizar la libreria de TinySound en este proyecto
 
 class SoundManager {
   TinySound.init()
   
-  var comboSound = TinySound.loadSound("/music/combo.wav");
-
+  var comboSound1 = TinySound.loadSound("/music/combo.wav");
+  var comboSound2 = TinySound.loadSound("/music/combo2.wav");
+  
+  var combos : Array[Sound] = new Array[Sound](2)
+  
+  combos(0) = comboSound1;
+  combos(1) = comboSound2;
+  
   var currentSong: Option[Music] = None;
 
   def shutdown(): Unit = {
@@ -57,6 +65,6 @@ class SoundManager {
   }
   
   def playComboSound() : Unit = {
-    comboSound.play()
+    combos(Random.nextInt(2)).play()
   }
 }
