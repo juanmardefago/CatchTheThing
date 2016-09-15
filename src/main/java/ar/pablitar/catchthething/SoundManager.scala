@@ -12,11 +12,13 @@ class SoundManager {
 
   var comboSound1 = TinySound.loadSound("/music/combo.wav");
   var comboSound2 = TinySound.loadSound("/music/combo2.wav");
+  var comboSound3 = TinySound.loadSound("/music/combo3.wav");
 
-  var combos: Array[Sound] = new Array[Sound](2)
+  var combos: Array[Sound] = new Array[Sound](3)
 
   combos(0) = comboSound1;
   combos(1) = comboSound2;
+  combos(2) = comboSound3;
 
   var currentSong: Option[Music] = None;
 
@@ -71,6 +73,6 @@ class SoundManager {
   }
 
   def playComboSound(): Unit = {
-    combos(Random.nextInt(2)).play();
+    combos(Random.nextInt(3)).play();
   }
 }
