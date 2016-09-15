@@ -7,7 +7,7 @@ import java.awt.Graphics2D
 import java.awt.AlphaComposite
 import java.awt.Color
 
-class SprintBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThingScene] {
+class SprintBar(bg: BarBackground) extends RichGameComponent[CatchTheThingScene] {
 
   var value = 100.0;
 
