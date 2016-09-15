@@ -7,7 +7,7 @@ import java.awt.Graphics2D
 import java.awt.AlphaComposite
 import java.awt.Color
 
-class ExtraTimeBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheThingScene] {
+class ExtraTimeBar(bg: BarBackground) extends RichGameComponent[CatchTheThingScene] {
   var value = 0.0;
 
   val background = bg;

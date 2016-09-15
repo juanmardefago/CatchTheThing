@@ -8,7 +8,7 @@ import com.uqbar.vainilla.DeltaState
 import java.awt.Graphics2D
 import java.awt.AlphaComposite
 
-class SprintBarBackground extends RichGameComponent[CatchTheThingScene] {
+class BarBackground extends RichGameComponent[CatchTheThingScene] {
 
   this.position = Vector2D(5, 565);
 

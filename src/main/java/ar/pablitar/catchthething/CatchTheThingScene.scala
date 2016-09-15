@@ -18,11 +18,11 @@ class CatchTheThingScene extends GameScene {
   
   val timer = new Timer;
   
-  val sprintBar = new SprintBar(new SprintBarBackground)
+  val sprintBar = new SprintBar(new BarBackground)
   sprintBar.setZ(-2);
   sprintBar.background.setZ(-3)
   
-  val extraTimeBar = new ExtraTimeBar(new SprintBarBackground)
+  val extraTimeBar = new ExtraTimeBar(new BarBackground)
   
   val soundManager = new SoundManager
   soundManager.init();

@@ -83,7 +83,7 @@ class BallAndComboCounter extends RichGameComponent[CatchTheThingScene] {
   def playComboSoundAndShow(): Unit = {
     if (!comboShowing) {
       this.getScene.soundManager.playComboSound();
-      this.getScene.popup.show(currentCombo);
+      this.getScene.popup.show(currentCombo + " COMBO");
       comboShowing = true;
     }
   }

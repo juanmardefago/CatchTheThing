@@ -8,62 +8,17 @@ import com.uqbar.vainilla.appearances.Invisible
 import ar.pablitar.vainilla.commons.components.SpeedyComponent
 import java.awt.Graphics2D
 
-class ComboPopUp extends SpeedyComponent[CatchTheThingScene] {
+class ComboPopUp extends PopUp {
 
-  val maxTimeShowing = 2;
-  var timer = 0.0;
-  var showing = false;
-  var combo = 0;
+  override val color = Color.RED;
+  override val initPos = new Vector2D(875, 250)
+  override val initSpeed = Vector2D(-700, 0)
+  override val accel = Vector2D(800, 0)
+  override val font = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 40);
 
-  val font = new Font(Font.SERIF, Font.BOLD + Font.ITALIC, 40);
-  val baseText = " COMBO";
-  override val acceleration = Some(Vector2D(800, 0))
+  this.position_=(initPos.x1, initPos.x2);
 
-  val initialLabel = new FadeableLabel(font, Color.RED, "");
-
-  this.setAppearance(initialLabel);
-
-  this.position_=(new Vector2D(875, 250));
-
-  override def update(state: DeltaState) = {
-    super.update(state)
-    if (showing) {
-      this.showRoutine(state.getDelta());
-    } else {
-      this.setAppearance(new FadeableLabel(font, Color.RED, ""));
-    }
-  }
-
-  override def render(graphics: Graphics2D) {
-    if (showing) {
-      super.render(graphics)
-    }
-  }
-
-  def show(combo: Int): Unit = {
-    if (!showing) {
-      showing = true;
-      this.combo = combo;
-      this.easingInit();
-    }
-  }
-
-  private def showRoutine(delta: Double): Unit = {
-    if (timer < maxTimeShowing) {
-      timer += delta;
-      var updatedAppearance = this.getAppearance().asInstanceOf[FadeableLabel];
-      updatedAppearance.setText(combo + baseText);
-      this.setAppearance(updatedAppearance);
-    } else {
-      showing = false;
-      timer = 0.0;
-      this.setAppearance(new FadeableLabel(font, Color.RED, ""));
-      this.getScene.counter.comboShowing = false;
-    }
-  }
-
-  private def easingInit() {
-    this.position_=(new Vector2D(875, 250));
-    this.speed = (Vector2D(-700, 0));
+  override def onShowEnd() : Unit = {
+    this.getScene.counter.comboShowing = false;
   }
 }
