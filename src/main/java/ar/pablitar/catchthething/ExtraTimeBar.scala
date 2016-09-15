@@ -79,5 +79,6 @@ class ExtraTimeBar(bg: SprintBarBackground) extends RichGameComponent[CatchTheTh
     this.getScene.timer.addTime(time)
     this.value = 0.0
     this.getAppearance.asInstanceOf[ResizableRectangle].changeColor(Color.CYAN);
+    this.getScene.soundManager.playTimeAddedSound();
   }
 }

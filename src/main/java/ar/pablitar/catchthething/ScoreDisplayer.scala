@@ -9,7 +9,7 @@ class ScoreDisplayer(score: Int, playTime: Double) extends RichGameComponent[Sco
     
     val textEnding = if(score < playTime * 50) "you should practice more..."
     else if(score < playTime * 100) "         pretty decent!"
-    else if(score < playTime * 200) "           really good!"
+    else if(score < playTime * 300) "           really good!"
     else "      wow... just wow..."
   
   

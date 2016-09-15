@@ -20,6 +20,8 @@ class SoundManager {
   combos(1) = comboSound2;
   combos(2) = comboSound3;
 
+  var timeAddedSound = TinySound.loadSound("/music/timeAdded.wav");
+  
   var currentSong: Option[Music] = None;
 
   def shutdown(): Unit = {
@@ -74,5 +76,9 @@ class SoundManager {
 
   def playComboSound(): Unit = {
     combos(Random.nextInt(3)).play();
+  }
+  
+  def playTimeAddedSound() : Unit = {
+    timeAddedSound.play();
   }
 }
